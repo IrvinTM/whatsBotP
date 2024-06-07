@@ -124,8 +124,9 @@ export const handleImageCommand = async (message, botBaileys) => {
             }
             return true; // Indica que se manejó un comando de imagen
         }
-
-        return false; // No se manejó un comando de imagen
+        else{
+            return false; // No se manejó un comando de imagen
+        } 
     } catch (error) {
         console.log("ERROR HANDLING IMAGE COMMAND: ", error);
         return false; // En caso de error, indica que no se manejó un comando de imagen
