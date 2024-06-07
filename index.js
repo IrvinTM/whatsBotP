@@ -13,7 +13,7 @@ const botBaileys = new BaileysClass({});
 botBaileys.on('auth_failure', async (error) => console.log("ERROR BOT: ", error));
 botBaileys.on('qr', (qr) => console.log("NEW QR CODE: ", qr));
 
-botBaileys.on('ready', async () => console.log('READY BOT'))
+botBaileys.on('ready', async () => console.log('BOT LISTO!!!'))
 
 botBaileys.on('message', async (message) => {
     const isImageCommand = await handleImageCommand(message, botBaileys);

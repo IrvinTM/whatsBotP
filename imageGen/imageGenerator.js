@@ -80,55 +80,65 @@ export const getAbsoluteReality = async (imagePrompt) => {
 };
 
 // Función para manejar los comandos de imagen
+// Ensure the images directory exists
+const ensureDirectoryExists = (directory) => {
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory, { recursive: true });
+    }
+};
+
+// Function to handle image commands
 export const handleImageCommand = async (message, botBaileys) => {
     try {
         const number = message.from;
         const messageContent = message.body.trim();
+        const imagesDirectory = path.resolve('images');
+        
+        // Ensure the images directory exists
+        ensureDirectoryExists(imagesDirectory);
 
-        // Verificar si el mensaje incluye el comando /absoluteReality
+        // Verify if the message includes the command /absoluteReality
         if (messageContent.toLowerCase().startsWith('/absolutereality')) {
             const prompt = messageContent.slice('/absolutereality'.length).trim();
             const image = await getAbsoluteReality(prompt);
             if (image) {
-                const imagePath = path.resolve(`images/absoluteReality_${Date.now()}.jpg`);
+                const imagePath = path.join(imagesDirectory, `absoluteReality_${Date.now()}.jpg`);
                 fs.writeFileSync(imagePath, image);
                 await botBaileys.sendMedia(number, imagePath, 'Here is your Absolute Reality image');
                 console.log(`Absolute Reality image sent to ${number} with prompt: ${prompt}`);
             }
-            return true; // Indica que se manejó un comando de imagen
+            return true; // Indicates that an image command was handled
         }
-        // Verificar si el mensaje incluye el comando /animated
+
+        // Verify if the message includes the command /animated
         if (messageContent.toLowerCase().startsWith('/animated')) {
             const prompt = messageContent.slice('/animated'.length).trim();
             const image = await getAnime(prompt);
             if (image) {
-                const imagePath = path.resolve(`images/animated_${Date.now()}.jpg`);
+                const imagePath = path.join(imagesDirectory, `animated_${Date.now()}.jpg`);
                 fs.writeFileSync(imagePath, image);
                 await botBaileys.sendMedia(number, imagePath, 'Here is your animated model image');
-                console.log(`Animated  image sent to ${number} with prompt: ${prompt}`);
-                
+                console.log(`Animated image sent to ${number} with prompt: ${prompt}`);
             }
-            return true; // Indica que se manejó un comando de imagen
+            return true; // Indicates that an image command was handled
         }
 
-        // Verificar si el mensaje incluye el comando /epicRealism
+        // Verify if the message includes the command /epicRealism
         if (messageContent.toLowerCase().startsWith('/epicrealism')) {
             const prompt = messageContent.slice('/epicrealism'.length).trim();
             const image = await getEpicRealism(prompt);
             if (image) {
-                const imagePath = path.resolve(`images/epicRealism_${Date.now()}.jpg`);
+                const imagePath = path.join(imagesDirectory, `epicRealism_${Date.now()}.jpg`);
                 fs.writeFileSync(imagePath, image);
                 await botBaileys.sendMedia(number, imagePath, 'Here is your Epic Realism image');
                 console.log(`Epic Realism image sent to ${number} with prompt: ${prompt}`);
-                
             }
-            return true; // Indica que se manejó un comando de imagen
+            return true; // Indicates that an image command was handled
+        } else {
+            return false; // No image command was handled
         }
-        else{
-            return false; // No se manejó un comando de imagen
-        } 
     } catch (error) {
         console.log("ERROR HANDLING IMAGE COMMAND: ", error);
-        return false; // En caso de error, indica que no se manejó un comando de imagen
+        return false; // In case of error, indicate that no image command was handled
     }
 };

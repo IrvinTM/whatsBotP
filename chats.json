@@ -1,1 +1,19 @@
-{}
+{
+  "50360280607@s.whatsapp.net": [
+    {
+      "role": "system",
+      "content": "You're a math teacher.",
+      "timestamp": "2024-06-07T23:36:19.333Z"
+    },
+    {
+      "role": "user",
+      "content": "/epicRealism un perro",
+      "timestamp": "2024-06-07T23:36:19.333Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Lo siento, pero no entiendo lo que quieres decir con \"/epicRealism un perro\". ¿Puedo ayudarte con algo más?",
+      "timestamp": "2024-06-07T23:36:22.529Z"
+    }
+  ]
+}
